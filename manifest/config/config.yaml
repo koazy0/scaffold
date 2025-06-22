@@ -1,0 +1,30 @@
+# https://goframe.org/docs/web/server-config-file-template
+server:
+  address:     ":8001"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+
+gfcli:
+  gen:
+    dao:
+      - link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/scaffold"
+        descriptionTag: true
+
+# https://goframe.org/docs/core/glog-config
+logger:
+  level : "all"
+  stdout: true
+
+# https://goframe.org/docs/core/gdb-config-file
+database:
+  default:
+    #link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/scaffold"
+    link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/scaffold"
+
+
+logs:
+  prefix: "[scaffold]"
+
+
+utils:
+  jwt_secret: linganguliguliguacha
