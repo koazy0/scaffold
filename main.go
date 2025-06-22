@@ -1,11 +1,10 @@
 package main
 
 import (
-	"database/sql"
 	"flag"
 	"fmt"
-	"github.com/go-sql-driver/mysql"
-	_ "github.com/go-sql-driver/mysql" // 必须匿名导入！
+	_ "github.com/go-sql-driver/mysql"              // 必须匿名导入！  database/sql 驱动
+	_ "github.com/gogf/gf/contrib/drivers/mysql/v2" // GoFrame ORM adapter
 	"github.com/gogf/gf/v2/frame/g"
 	"scaffold/internal/dao"
 	"scaffold/internal/model/do"
@@ -27,7 +26,7 @@ func main() {
 	fmt.Println(va.String())
 	va, err = g.Cfg().Get(ctx, "database.default.link")
 	fmt.Println(va.String())
-	sql.Register("mysql", &mysql.MySQLDriver{})
+	//sql.Register("mysql", &mysql.MySQLDriver{})
 	// 测试数据库连接
 	if db := g.DB(); db != nil {
 		if _, err := db.Exec(ctx, "SELECT 1"); err != nil {
@@ -43,9 +42,13 @@ func main() {
 	user := do.UserModels{}
 	users := []do.UserModels{}
 	err = dao.UserModels.Ctx(ctx).Where("id=1").Scan(&user)
-	var count int
+	count := 1
 	err = dao.UserModels.Ctx(ctx).Where("id=1").ScanAndCount(&users, &count, false)
-	fmt.Println(err.Error())
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	if migrateFlag {
 		service.Migrations().Migrate(ctx)
 	}

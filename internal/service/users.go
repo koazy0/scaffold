@@ -13,6 +13,7 @@ import (
 type (
 	IUser interface {
 		ValidateUser(ctx context.Context, in model.UserSignIn) (out *model.UserSignInReply, err error)
+		CreateUser(ctx context.Context, in model.UserSignUp) (out *model.UserSignUpReply, err error)
 	}
 )
 

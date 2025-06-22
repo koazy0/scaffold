@@ -44,13 +44,14 @@ type CustomClaims struct {
 	jwt.RegisteredClaims
 }
 
-// GenerateToken 生成一个带有 userID 和 username 的 JWT，默认有效期 1 小时
-func (s *sJwt) GenerateToken(userID, password string) (string, error) {
+// GenerateToken 生成一个带有 userID的 JWT，默认有效期 1 小时
+func (s *sJwt) GenerateToken(userID string) (string, error) {
 	// 构造自定义声明
 	claims := CustomClaims{
 		UserID: userID,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // 24 小时后过期
+			//ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // 24 小时后过期
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(1 * time.Second)), // 24 小时后过期
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			//Issuer:    "your-app-name",
 			//Subject: userID,

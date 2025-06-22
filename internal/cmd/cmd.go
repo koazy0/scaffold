@@ -21,6 +21,7 @@ var (
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				group.Middleware(
 					service.Middleware().CORS,
+					//service.Middleware().Ctx, //todo 在这个ctx中存储一系列消息
 					service.Middleware().MiddlewareHandlerResponse,
 				)
 				group.Bind(

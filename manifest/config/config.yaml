@@ -18,8 +18,8 @@ logger:
 # https://goframe.org/docs/core/gdb-config-file
 database:
   default:
+    link: "mysql:root:123456@tcp(127.0.0.1:3306)/scaffold"
     #link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/scaffold"
-    link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/scaffold"
 
 
 logs:
