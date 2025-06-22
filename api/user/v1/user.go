@@ -1,25 +1,25 @@
 package v1
 
-import "github.com/gogf/gf/v2/frame/g"
+import (
+	"github.com/gogf/gf/v2/frame/g"
+	"scaffold/internal/model"
+)
 
 type SignInReq struct {
-	g.Meta   `path:"/user/signin" method:"post" tags:"用户管理" summary:"用户已有账号登录"`
-	Username string `json:"username" v:"required"`
-	Password string `json:"password" v:"required"`
+	g.Meta `path:"/user/signin" method:"post" tags:"用户管理" summary:"用户已有账号登录"`
+	model.UserSignIn
 }
-type SignInRes struct{}
+type SignInRes struct {
+	model.UserSignInReply
+}
 
 type SignUpReq struct {
 	g.Meta `path:"/user/signup" method:"post" tags:"用户管理" summary:"用户注册账号"`
-	//	UID  string `json:"username" v:"required"`	//ID还是后台自动生成吧
-	UserID    string `json:"userid" v:"required"`
-	Username  string `json:"username" v:"required"`
-	Password  string `json:"password" v:"required"`
-	Password2 string `json:"password2" v:"required"`
-	Email     string `json:"email" v:"required"`
-	//VerifyCode    string `json:"verify_code" v:"required"`//邮箱验证码，后面也许可能会用到
+	model.UserSignUp
 }
-type SignUpRes struct{}
+type SignUpRes struct {
+	model.UserSignUpReply
+}
 
 type EmailVerifyReq struct {
 	g.Meta `path:"/emailverify" method:"post" tags:"用户管理" summary:"邮箱验证"`

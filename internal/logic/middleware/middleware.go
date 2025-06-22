@@ -135,7 +135,7 @@ func (s *sMiddleware) JWTAuth(r *ghttp.Request) {
 	}
 
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-	userID, err := service.Utils().ParseToken(tokenString)
+	userID, err := service.Jwt().ParseToken(tokenString)
 	if err != nil {
 		err = gerror.NewCode(gcode.CodeNotAuthorized, err.Error())
 		r.SetError(err)

@@ -10,6 +10,9 @@ import (
 )
 
 type (
+	IExample interface {
+		Example()
+	}
 	IJwt interface {
 		// GenerateToken 生成一个带有 userID 和 username 的 JWT，默认有效期 1 小时
 		GenerateToken(userID string, password string) (string, error)
@@ -25,9 +28,21 @@ type (
 )
 
 var (
+	localExample    IExample
 	localJwt        IJwt
 	localMigrations IMigrations
 )
+
+func Example() IExample {
+	if localExample == nil {
+		panic("implement not found for interface IExample, forgot register?")
+	}
+	return localExample
+}
+
+func RegisterExample(i IExample) {
+	localExample = i
+}
 
 func Jwt() IJwt {
 	if localJwt == nil {
