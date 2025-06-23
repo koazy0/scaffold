@@ -17,4 +17,5 @@ temp/
 temp.yaml
 bin
 /logs
+/internal/logic/users/logs
 #**/config/config.yaml
