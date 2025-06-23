@@ -8,5 +8,6 @@ type PingReq struct {
 	g.Meta `path:"/ping" tags:"ping" method:"get" summary:"测试搭建成功"`
 }
 type PingRes struct {
-	g.Meta `mime:"text/html" example:"string"`
+	g.Meta  `mime:"text/html" example:"string"`
+	Message string `json:"message" example:"pong"`
 }

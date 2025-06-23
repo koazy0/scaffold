@@ -14,8 +14,8 @@ type (
 		Example()
 	}
 	IJwt interface {
-		// GenerateToken 生成一个带有 userID的 JWT，默认有效期 1 小时
-		GenerateToken(userID string) (string, error)
+		// GenerateToken 生成一个带有 userID的 JWT，默认有效期 12 小时
+		GenerateToken(ctx context.Context, userID string) (string, error)
 		ParseToken(tokenString string) (UserID string, err error)
 		// HashPassword 用 SHA-256(salt + password) 方式加密
 		HashPassword(password string, salt string) (passwordEncrypt string)

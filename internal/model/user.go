@@ -24,7 +24,7 @@ type UserSignIn struct {
 }
 
 type UserSignInReply struct {
-	Message string `json:"message"`
+	Token string `json:"token"`
 }
 
 type UserSignUp struct {

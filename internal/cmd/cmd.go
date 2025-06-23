@@ -25,13 +25,13 @@ var (
 					service.Middleware().MiddlewareHandlerResponse,
 				)
 				group.Bind(
-					ping.NewV1().Ping,
-					user.NewV1().SignUp,
-					user.NewV1().SignIn,
+					ping.NewV1(),
 				)
-				group.Group("user", func(groupUser *ghttp.RouterGroup) {
-					groupUser.Middleware(service.Middleware().AccessKeyAuth)
-					group.Bind()
+				group.Group("/user", func(groupUser *ghttp.RouterGroup) {
+					//groupUser.Middleware(service.Middleware().AccessKeyAuth)
+					groupUser.Bind(
+						user.NewV1(),
+					)
 				})
 			})
 			s.Run()

@@ -22,7 +22,7 @@ type SignUpRes struct {
 }
 
 type LoginReq struct {
-	g.Meta `path:"/login" method:"post" tags:"用户管理" summary:"用户注册账号"`
+	g.Meta `path:"/login" method:"post" tags:"用户管理" summary:"用户已有账号登录"`
 	model.UserSignIn
 }
 type LoginRes struct {
@@ -31,7 +31,7 @@ type LoginRes struct {
 
 // todo 再写这个路由的时候需要在头部加上JWT
 type LogoutReq struct {
-	g.Meta `path:"/logout" method:"post" tags:"用户管理" summary:"用户注册账号"`
+	g.Meta `path:"/logout" method:"get" tags:"用户管理" summary:"用户登出账号"`
 	model.UserSignUp
 }
 type LogoutRes struct {

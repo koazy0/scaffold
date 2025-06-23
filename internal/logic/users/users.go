@@ -41,9 +41,17 @@ func (s *sUser) ValidateUser(ctx context.Context, in model.UserSignIn) (out *mod
 	//根据加密后对比
 	passwordEncryptIn := service.Jwt().HashPassword(in.Password, *userData.Salt)
 	if passwordEncryptIn != *userData.Password {
-		return &model.UserSignInReply{Message: "password is incorrect"}, nil
+		return nil, errors.New("password is incorrect")
 	}
-	return
+	token, err := service.Jwt().GenerateToken(in.UserID)
+	if err != nil {
+		zap.S().Error(err.Error())
+		return nil, err
+	}
+	out = &model.UserSignInReply{
+		Token: token,
+	}
+	return out, nil
 }
 
 func (s *sUser) CreateUser(ctx context.Context, in model.UserSignUp) (out *model.UserSignUpReply, err error) {

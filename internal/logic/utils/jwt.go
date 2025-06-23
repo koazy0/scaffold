@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"context"
 	rand "crypto/rand"
 	"crypto/sha256"
 	"encoding/hex"
@@ -44,15 +45,21 @@ type CustomClaims struct {
 	jwt.RegisteredClaims
 }
 
-// GenerateToken 生成一个带有 userID的 JWT，默认有效期 1 小时
-func (s *sJwt) GenerateToken(userID string) (string, error) {
+// GenerateToken 生成一个带有 userID的 JWT，默认有效期 12 小时
+func (s *sJwt) GenerateToken(ctx context.Context, userID string) (string, error) {
 	// 构造自定义声明
+	expiresTimeYaml, err := g.Cfg().Get(ctx, "utils.jwt_expire")
+	expiresTimeHour := expiresTimeYaml.Int()
+	if err != nil || expiresTimeHour == 0 {
+		expiresTimeHour = 12
+	}
+
 	claims := CustomClaims{
 		UserID: userID,
 		RegisteredClaims: jwt.RegisteredClaims{
-			//ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // 24 小时后过期
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(1 * time.Second)), // 24 小时后过期
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expiresTimeHour) * time.Hour)), // 24 小时后过期
+			//ExpiresAt: jwt.NewNumericDate(time.Now().Add(1 * time.Second)), // 测试用
+			IssuedAt: jwt.NewNumericDate(time.Now()),
 			//Issuer:    "your-app-name",
 			//Subject: userID,
 		},

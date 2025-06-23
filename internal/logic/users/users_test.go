@@ -87,7 +87,7 @@ func TestCreateUser_Integration(t *testing.T) {
 	_, err := User().CreateUser(context.Background(), model.UserSignUp{
 		UserID:   "admin",
 		Username: "admin",
-		Password: "admin5588",
+		Password: "152123123",
 	})
 	if err != nil {
 		t.Fatalf("CreateUser failed: %v", err)
