@@ -126,7 +126,7 @@ func TestValidateUser_Integration(t *testing.T) {
 }
 func TestValidateUser_Token(t *testing.T) {
 
-	token, err := service.Jwt().GenerateToken("admin")
+	token, err := service.Jwt().GenerateToken(context.Background(), "admin")
 	if err != nil {
 		t.Fatalf("CreateUser failed: %v", err)
 	}
