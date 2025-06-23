@@ -43,7 +43,7 @@ func (s *sUser) ValidateUser(ctx context.Context, in model.UserSignIn) (out *mod
 	if passwordEncryptIn != *userData.Password {
 		return nil, errors.New("password is incorrect")
 	}
-	token, err := service.Jwt().GenerateToken(in.UserID)
+	token, err := service.Jwt().GenerateToken(ctx, in.UserID)
 	if err != nil {
 		zap.S().Error(err.Error())
 		return nil, err
