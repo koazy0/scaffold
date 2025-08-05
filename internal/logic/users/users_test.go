@@ -5,9 +5,9 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"              // 必须匿名导入！  database/sql 驱动
 	_ "github.com/gogf/gf/contrib/drivers/mysql/v2" // GoFrame ORM adapter
-	"scaffold/internal/dao"
-	"scaffold/internal/model"
-	"scaffold/internal/service"
+	"moyu/internal/dao"
+	"moyu/internal/model"
+	"moyu/internal/service"
 	"testing"
 )
 

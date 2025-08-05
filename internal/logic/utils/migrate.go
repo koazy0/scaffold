@@ -5,9 +5,9 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"scaffold/internal/common"
-	"scaffold/internal/model"
-	"scaffold/internal/service"
+	"moyu/internal/common"
+	"moyu/internal/model"
+	"moyu/internal/service"
 	"strings"
 )
 

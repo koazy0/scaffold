@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"scaffold/internal/common"
-	"scaffold/internal/service"
+	"moyu/internal/common"
+	"moyu/internal/service"
 )
 
 type (

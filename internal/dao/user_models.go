@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"scaffold/internal/dao/internal"
+	"moyu/internal/dao/internal"
 )
 
 // userModelsDao is the data access object for the table user_models.

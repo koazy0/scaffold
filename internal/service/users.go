@@ -7,7 +7,7 @@ package service
 
 import (
 	"context"
-	"scaffold/internal/model"
+	"moyu/internal/model"
 )
 
 type (

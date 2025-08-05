@@ -5,7 +5,7 @@
 package ping
 
 import (
-	"scaffold/api/ping"
+	"moyu/api/ping"
 )
 
 type ControllerV1 struct{}

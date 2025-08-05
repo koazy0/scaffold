@@ -7,8 +7,8 @@ package ping
 import (
 	"context"
 
-	"scaffold/api/ping/v1"
-	"scaffold/api/ping/v2"
+	"moyu/api/ping/v1"
+	"moyu/api/ping/v2"
 )
 
 type IPingV1 interface {

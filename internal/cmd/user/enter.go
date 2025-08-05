@@ -2,7 +2,7 @@ package user
 
 import (
 	"github.com/spf13/cobra"
-	"scaffold/internal/common"
+	"moyu/internal/common"
 )
 
 var logger = common.Logs().Cat("cmd/user")

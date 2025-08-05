@@ -7,10 +7,10 @@ import (
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/spf13/cobra"
-	"scaffold/internal/common"
-	"scaffold/internal/controller/ping"
-	"scaffold/internal/controller/user"
-	"scaffold/internal/service"
+	"moyu/internal/common"
+	"moyu/internal/controller/ping"
+	"moyu/internal/controller/user"
+	"moyu/internal/service"
 )
 
 func ServerCommand() *cobra.Command {

@@ -2,8 +2,8 @@ package migrate
 
 import (
 	"github.com/spf13/cobra"
-	"scaffold/internal/common"
-	"scaffold/internal/service"
+	"moyu/internal/common"
+	"moyu/internal/service"
 )
 
 var logger = common.Logs().Cat("cmd/migrate")

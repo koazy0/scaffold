@@ -7,7 +7,7 @@ package user
 import (
 	"context"
 
-	"scaffold/api/user/v1"
+	"moyu/api/user/v1"
 )
 
 type IUserV1 interface {

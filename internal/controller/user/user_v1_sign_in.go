@@ -3,12 +3,12 @@ package user
 import (
 	"context"
 	"github.com/gogf/gf/v2/util/gconv"
-	"scaffold/internal/model"
-	"scaffold/internal/service"
+	"moyu/internal/model"
+	"moyu/internal/service"
 
 	"github.com/gogf/gf/v2/errors/gerror"
 
-	"scaffold/api/user/v1"
+	"moyu/api/user/v1"
 )
 
 func (c *ControllerV1) SignIn(ctx context.Context, req *v1.SignInReq) (res *v1.SignInRes, err error) {

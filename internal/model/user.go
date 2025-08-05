@@ -1,7 +1,7 @@
 package model
 
 import (
-	"scaffold/internal/model/ctype"
+	"moyu/internal/model/ctype"
 	"time"
 )
 

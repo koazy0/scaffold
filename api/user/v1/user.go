@@ -2,7 +2,7 @@ package v1
 
 import (
 	"github.com/gogf/gf/v2/frame/g"
-	"scaffold/internal/model"
+	"moyu/internal/model"
 )
 
 type SignInReq struct {

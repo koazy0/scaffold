@@ -5,7 +5,7 @@
 package user
 
 import (
-	"scaffold/api/user"
+	"moyu/api/user"
 )
 
 type ControllerV1 struct{}

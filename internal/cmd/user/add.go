@@ -3,8 +3,8 @@ package user
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"scaffold/internal/model"
-	"scaffold/internal/service"
+	"moyu/internal/model"
+	"moyu/internal/service"
 )
 
 func init() {

@@ -1,5 +1,4 @@
-module scaffold
-
+module moyu
 go 1.22
 
 toolchain go1.24.1
