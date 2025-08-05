@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"scaffold/internal/common"
 	"scaffold/internal/service"
 )
 
@@ -10,7 +11,7 @@ type (
 
 func init() {
 	service.RegisterExample(Example())
-	service.Logs().Info("Init Examples success")
+	common.Logs().Info("Init Examples success")
 }
 
 var insExample = sExample{}
