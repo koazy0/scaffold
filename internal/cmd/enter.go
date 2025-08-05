@@ -1,41 +1,53 @@
 package cmd
 
 import (
-	"context"
-	"scaffold/internal/controller/ping"
-	"scaffold/internal/controller/user"
-	"scaffold/internal/service"
-
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gcmd"
+	"fmt"
+	"github.com/spf13/cobra"
+	"os"
+	"scaffold/internal/cmd/migrate"
+	"scaffold/internal/cmd/server"
+	"scaffold/internal/cmd/user"
+	"scaffold/internal/common"
 )
 
-var (
-	Main = gcmd.Command{
-		Name:  "main",
-		Usage: "main",
-		Brief: "start http server",
-		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-			s := g.Server()
-			s.Group("/", func(group *ghttp.RouterGroup) {
-				group.Middleware(
-					service.Middleware().CORS,
-					//service.Middleware().Ctx, //todo 在这个ctx中存储一系列消息
-					service.Middleware().MiddlewareHandlerResponse,
-				)
-				group.Bind(
-					ping.NewV1(),
-				)
-				group.Group("/user", func(groupUser *ghttp.RouterGroup) {
-					//groupUser.Middleware(service.Middleware().AccessKeyAuth)
-					groupUser.Bind(
-						user.NewV1(),
-					)
-				})
-			})
-			s.Run()
-			return nil
-		},
+var logger = common.Logs().Cat("cmd")
+var rootCmd = &cobra.Command{
+	Use:   "honey",
+	Short: "deal with user model",
+	Long:  `this is a long description with user command`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// Do Stuff Here
+		logger.Infoln("hello user")
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(
+		migrate.MigrateCommand(),
+		server.ServerCommand(),
+		user.UserCommand(),
+	)
+}
+func RootCommand() *cobra.Command {
+	return rootCmd
+}
+
+// Execute 对main函数暴露出来的方法
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
-)
+}
+
+type FlagOptions struct {
+	File    string
+	Version bool
+	DB      bool
+	Menu    string
+	Type    string
+	Value   string
+	Help    bool
+}
+
+var options FlagOptions
