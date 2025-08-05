@@ -1,6 +1,9 @@
 package user
 
-import "scaffold/internal/common"
+import (
+	"github.com/spf13/cobra"
+	"scaffold/internal/common"
+)
 
 var logger = common.Logs().Cat("cmd/user")
 
