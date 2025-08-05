@@ -12,7 +12,7 @@ import (
 )
 
 func (c *ControllerV1) Login(ctx context.Context, req *v1.LoginReq) (res *v1.LoginRes, err error) {
-	if req.UserID == "" || req.Password == "" {
+	if req.UserID == "" {
 		return nil, gerror.New("用户名或密码不能为空")
 	}
 	in := model.UserSignIn{}

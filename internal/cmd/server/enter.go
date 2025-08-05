@@ -38,7 +38,7 @@ var (
 		Brief: "start http server",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
-			s.Group("/", func(group *ghttp.RouterGroup) {
+			s.Group("/moyu", func(group *ghttp.RouterGroup) {
 				group.Middleware(
 					service.Middleware().CORS,
 					//service.Middleware().Ctx, //todo 在这个ctx中存储一系列消息
@@ -53,6 +53,13 @@ var (
 						user.NewV1(),
 					)
 				})
+				group.Group("/config", func(groupConfig *ghttp.RouterGroup) {
+					groupConfig.Middleware(service.Middleware().JWTAuth)
+					groupConfig.Bind(
+					//config.NewV1,
+					)
+				})
+
 			})
 			s.Run()
 			return nil

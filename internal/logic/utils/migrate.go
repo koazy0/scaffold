@@ -37,9 +37,11 @@ func (s *sMigrations) Migrate(ctx context.Context) {
 		common.Logs().Fatal("database connect error: " + err.Error())
 	}
 
-	// 自动迁移
+	// 迁移表结构
 	err = db.AutoMigrate(
-		&model.UserModel{}, // 添加你所有要迁移的表结构
+		&model.UserNoPasswordModel{},
+		&model.ExpenseModel{},
+		&model.UserConfigModel{},
 	)
 	if err != nil {
 		common.Logs().Fatal(err.Error())

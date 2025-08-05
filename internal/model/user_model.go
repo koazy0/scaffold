@@ -6,6 +6,7 @@ import (
 )
 
 // UserModel 数据库中用户表
+// 这里暂时先弃用
 type UserModel struct {
 	MODEL
 	UID      *string          `json:"uid" gorm:"column:uid;uniqueIndex;not null;type:varchar(36);comment:UID"`
@@ -19,27 +20,13 @@ type UserModel struct {
 }
 
 type UserSignIn struct {
-	UserID   string `json:"user_id" v:"required"`
-	Password string `json:"password" v:"required"`
+	UserID string `json:"user_id" v:"required"`
 }
 
 type UserSignInReply struct {
 	Token string `json:"token"`
 }
 
-type UserSignUp struct {
-	//	UID  string `json:"username" v:"required"`	//ID还是后台自动生成吧
-	UserID   string `json:"userid" v:"required"`
-	Username string `json:"username" v:"required"`
-	Password string `json:"password" v:"required"`
-	//Password2 string `json:"password2" v:"required"`
-	//Email     string `json:"email" v:"required"`
-	//VerifyCode    string `json:"verify_code" v:"required"`//邮箱验证码，后面也许可能会用到
-}
-
-type UserSignUpReply struct {
-	Message string `json:"message"`
-}
 type UserLogout struct {
 	UserId string `json:"username" v:"required"`
 }
