@@ -118,7 +118,7 @@ func (s *sMiddleware) AccessKeyAuth(r *ghttp.Request) {
 // JWTAuth 使用 JWT 进行认证
 func (s *sMiddleware) JWTAuth(r *ghttp.Request) {
 	// 从请求头获取 AK 值
-	authHeader := r.GetHeader("Authorization") // 或 r.Header.Get("AK")
+	authHeader := r.GetHeader("Authorization") // 或 r.Header.Get("Authorization")
 	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
 		//不用下面默认的回复方式
 		//r.Response.WriteStatusExit(
@@ -143,7 +143,7 @@ func (s *sMiddleware) JWTAuth(r *ghttp.Request) {
 		return
 	}
 
-	// 认证通过，设置用户信息上下文（可选）
+	// 认证通过，设置用户信息上下文
 	r.SetCtxVar("user_id", userID)
 	r.Middleware.Next()
 }

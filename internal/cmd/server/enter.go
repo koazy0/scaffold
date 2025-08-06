@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/spf13/cobra"
 	"moyu/internal/common"
+	"moyu/internal/controller/config"
 	"moyu/internal/controller/ping"
 	"moyu/internal/controller/user"
 	"moyu/internal/service"
@@ -56,7 +57,7 @@ var (
 				group.Group("/config", func(groupConfig *ghttp.RouterGroup) {
 					groupConfig.Middleware(service.Middleware().JWTAuth)
 					groupConfig.Bind(
-					//config.NewV1,
+						config.NewV1(),
 					)
 				})
 

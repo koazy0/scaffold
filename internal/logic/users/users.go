@@ -3,15 +3,12 @@ package users
 import (
 	"context"
 	"errors"
-	"fmt"
 	"moyu/internal/common"
 	"moyu/internal/dao"
 	"moyu/internal/logic/utils"
 	"moyu/internal/model"
-	"moyu/internal/model/ctype"
-	"moyu/internal/model/do"
 	"moyu/internal/service"
-	"strconv"
+	"time"
 )
 
 type (
@@ -44,10 +41,7 @@ func (s *sUser) ValidateUser(ctx context.Context, in model.UserSignIn) (out *mod
 		return nil, err
 	}
 	//根据加密后对比
-	passwordEncryptIn := service.Jwt().HashPassword(in.Password, *userData.Salt)
-	if passwordEncryptIn != *userData.Password {
-		return nil, errors.New("password is incorrect")
-	}
+
 	token, err := service.Jwt().GenerateToken(ctx, in.UserID)
 	if err != nil {
 		logger.Error(err.Error())
@@ -59,54 +53,54 @@ func (s *sUser) ValidateUser(ctx context.Context, in model.UserSignIn) (out *mod
 	return out, nil
 }
 
-func (s *sUser) CreateUser(ctx context.Context, in model.UserSignUp, Role int) (out *model.UserSignUpReply, err error) {
+func (s *sUser) InitUser(ctx context.Context, userID string) (err error) {
 
 	//查询数据库中有多少个角色
-	users := []do.UserModels{}
-	count := 1
-	err = dao.UserModels.Ctx(ctx).ScanAndCount(users, &count, false)
-	if err != nil {
-		logger.Error(err.Error())
-		return nil, err
-	}
+	//users := []do.UserModels{}
+	//count := 1
+	//err = dao.UserModels.Ctx(ctx).ScanAndCount(users, &count, false)
+	//if err != nil {
+	//	logger.Error(err.Error())
+	//	return nil, err
+	//}
 	//根据length来进行uid的生成
-	uid := 100000000 + count + 1
-	salt, err := service.Jwt().GenerateSalt()
-	if err != nil {
-		logger.Errorln("生成盐值失败: " + err.Error())
-		return nil, errors.New("生成盐值失败")
+
+	//创建用户
+	userNoPasswdModel := model.UserNoPasswordModel{
+		UserID:    utils.CreatePointer(userID),
+		CreatedAt: time.Now(),
 	}
-	hashPassword := service.Jwt().HashPassword(in.Password, salt)
-	userModel := model.UserModel{
-		UID:      utils.CreatePointer(strconv.Itoa(uid)),
-		UserID:   utils.CreatePointer(in.UserID),
-		Username: utils.CreatePointer(in.Username),
-		Salt:     utils.CreatePointer(salt),
-		Password: utils.CreatePointer(hashPassword),
-		Role:     ctype.Role(Role),
-		Status:   1,
-	}
-	fmt.Println(userModel)
 	//存入usermodel
-	res, err := dao.UserModels.Ctx(ctx).Insert(userModel)
+	res, err := dao.UserModels.Ctx(ctx).Insert(userNoPasswdModel)
 	if err != nil {
 		logger.Error(err.Error())
-		return nil, err
+		return err
 	}
 	affected, err := res.RowsAffected()
 	if err != nil {
 		logger.Error(err.Error())
-		return nil, err
+		return err
 	}
+
 	if affected == 0 {
 		err = errors.New("affected rows equal 0")
 		logger.Error(err.Error())
 	}
+	logger.Infof("new user created, userID:%s", userID)
+	//创建默认配置
 	id, err := res.LastInsertId()
 	if err != nil {
-		logger.Error(err.Error())
-		return nil, err
+		return err
 	}
-	logger.Infof("new user created,userUID:%d, userID:%s, ID:%d", uid, in.UserID, id)
-	return
+
+	defaultConfig := model.UserConfigModel{
+		UserID:        id,
+		Income:        8000,
+		IncomeCycle:   22,         //默认一个月上22天
+		WorkTimeStart: "09:00:00", //time.TimeOnly
+		WorkTimeEnd:   "18:00:00",
+		CreatedAt:     time.Now(),
+	}
+	println(defaultConfig)
+	return nil
 }
