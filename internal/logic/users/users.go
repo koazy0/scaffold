@@ -3,12 +3,11 @@ package users
 import (
 	"context"
 	"errors"
+	"fmt"
 	"moyu/internal/common"
 	"moyu/internal/dao"
-	"moyu/internal/logic/utils"
 	"moyu/internal/model"
 	"moyu/internal/service"
-	"time"
 )
 
 type (
@@ -67,8 +66,8 @@ func (s *sUser) InitUser(ctx context.Context, userID string) (err error) {
 
 	//创建用户
 	userNoPasswdModel := model.UserNoPasswordModel{
-		UserID:    utils.CreatePointer(userID),
-		CreatedAt: time.Now(),
+		UserID: userID,
+		//CreatedAt: time.Now(),
 	}
 	//存入usermodel
 	res, err := dao.UserModels.Ctx(ctx).Insert(userNoPasswdModel)
@@ -99,8 +98,7 @@ func (s *sUser) InitUser(ctx context.Context, userID string) (err error) {
 		IncomeCycle:   22,         //默认一个月上22天
 		WorkTimeStart: "09:00:00", //time.TimeOnly
 		WorkTimeEnd:   "18:00:00",
-		CreatedAt:     time.Now(),
 	}
-	println(defaultConfig)
+	fmt.Println(defaultConfig)
 	return nil
 }

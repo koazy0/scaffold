@@ -12,7 +12,7 @@ type (
 )
 
 var (
-	logger = common.Logs().Cat("work_over_time")
+	logger = common.Logs().Cat("config")
 )
 
 func init() {

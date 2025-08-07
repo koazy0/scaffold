@@ -24,7 +24,7 @@ type (
 var insLogs = sLogs{log}
 
 func init() {
-	// InitLog()
+	//InitLog()
 	go cronClearLogs() //启动定时清理任务
 }
 func Logs() *sLogs {

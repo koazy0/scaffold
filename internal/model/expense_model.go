@@ -2,19 +2,16 @@ package model
 
 import (
 	"fmt"
-	"time"
 )
 
 type ExpenseModel struct {
 	MODEL
-	Id           uint64              `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
-	UserID       uint                `gorm:"column:user_id;not null;index"` // 外键字段
-	User         UserNoPasswordModel `gorm:"foreignKey:user_id;references:ID;constraint:OnDelete:SET NULL"`
-	Expense      Decimal             `gorm:"column:expense;type:decimal(10,2);size:64;comment:开支花费" json:"expense"`
-	ExpenseName  string              `gorm:"column:config_key;size:64;comment:开支项" json:"expense_name"`
-	ExpenseCycle int                 `gorm:"column:config_key;size:64;comment:开支周期" json:"expense_cycle"` //直接将花销除以周期
-	CreatedAt    time.Time           `gorm:"column:created_at;auto;comment:创建时间" json:"-" structs:"-"`
-	DeletedAt    time.Time           `gorm:"column:deleted_at;auto;comment:删除时间" json:"-" structs:"-"`
+	//Id           uint64              `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
+	UserID       int64                `gorm:"column:user_id;not null;index"` // 外键字段
+	User         *UserNoPasswordModel `gorm:"foreignKey:UserID;references:ID;"`
+	Expense      Decimal              `gorm:"column:expense;type:decimal(10,2);size:64;comment:开支花费" json:"expense"`
+	ExpenseName  string               `gorm:"column:config_key;size:64;comment:开支项" json:"expense_name"`
+	ExpenseCycle int                  `gorm:"column:config_key;size:64;comment:开支周期" json:"expense_cycle"` //直接将花销除以周期
 }
 
 // cycle的周期

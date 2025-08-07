@@ -7,7 +7,7 @@ server:
 gfcli:
   gen:
     dao:
-      - link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/moyu"
+      - link: "mysql:root:123456@tcp(127.0.0.1:3306)/moyu"
         descriptionTag: true
 
 # https://goframe.org/docs/core/glog-config
@@ -19,7 +19,7 @@ logger:
 database:
   default:
     #link: "mysql:root:123456@tcp(127.0.0.1:3306)/scaffold"
-    link: "mysql:root:BcmqBD1YxqOks6dX@tcp(127.0.0.1:3306)/moyu"
+    link: "mysql:root:123456@tcp(127.0.0.1:3306)/moyu"
 
 
 logs:

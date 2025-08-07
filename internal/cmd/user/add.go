@@ -3,15 +3,14 @@ package user
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"moyu/internal/model"
 	"moyu/internal/service"
 )
 
 func init() {
 	//解析命令行参数
-	addCmd.Flags().BoolVarP(&add.Admin, "admin", "a", false, "add admin user")
+	//addCmd.Flags().BoolVarP(&add.Admin, "admin", "a", false, "add admin user")
+	//addCmd.Flags().StringVarP(&add.Username, "password", "p", "", "set user password") //暂时先这么写，最好通过命令框输入
 	addCmd.Flags().StringVarP(&add.Username, "name", "n", "", "set user name")
-	addCmd.Flags().StringVarP(&add.Username, "password", "p", "", "set user password") //暂时先这么写，最好通过命令框输入
 	userCmd.AddCommand(addCmd)
 }
 
@@ -46,19 +45,7 @@ var addCmd = &cobra.Command{
 			}
 		}
 
-		var role int
-
-		if add.Admin {
-			role = 1
-		} else {
-			role = 2
-		}
-
-		_, err := service.User().CreateUser(cmd.Context(), model.UserSignUp{
-			UserID:   add.Username,
-			Username: add.Username,
-			Password: add.Password,
-		}, role)
+		err := service.User().InitUser(cmd.Context(), add.Username)
 		if err != nil {
 			logger.Fatalf("create user failed:%s", err.Error())
 		}

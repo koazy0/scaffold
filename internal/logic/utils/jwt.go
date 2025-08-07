@@ -9,7 +9,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/golang-jwt/jwt/v5"
-	_ "moyu/internal/logic/logs"
 	"moyu/internal/service"
 	"time"
 )
@@ -23,10 +22,10 @@ func init() {
 	var err error
 	secret, err := g.Cfg().Get(ctx, "utils.jwt_secret")
 	if err != nil {
-		service.Logs().Fatal(err.Error())
+		logger.Fatal(err.Error())
 	}
 	jwtSecret = secret.Bytes()
-	service.Logs().Info("Init jwts success!")
+	logger.Info("Init jwts success!")
 	service.RegisterJwt(Jwt())
 }
 

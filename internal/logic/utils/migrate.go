@@ -5,7 +5,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"moyu/internal/common"
 	"moyu/internal/model"
 	"moyu/internal/service"
 	"strings"
@@ -19,7 +18,9 @@ func init() {
 type sMigrations struct {
 }
 
-var insMigrations = sMigrations{}
+var (
+	insMigrations = sMigrations{}
+)
 
 func Migrations() *sMigrations {
 	return &insMigrations
@@ -28,23 +29,32 @@ func (s *sMigrations) Migrate(ctx context.Context) {
 
 	dsnVar, err := g.Cfg().Get(ctx, "database.default.link")
 	if err != nil {
-		common.Logs().Fatal("no dsn configs: " + err.Error())
+		logger.Fatal("no dsn configs: " + err.Error())
 	}
 	dsn := dsnVar.String()
 	dsn = strings.TrimPrefix(dsn, "mysql:")
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		common.Logs().Fatal("database connect error: " + err.Error())
+		logger.Fatal("database connect error: " + err.Error())
 	}
 
-	// 迁移表结构
+	//先创建父表，再创建子表
 	err = db.AutoMigrate(
 		&model.UserNoPasswordModel{},
-		&model.ExpenseModel{},
-		&model.UserConfigModel{},
 	)
 	if err != nil {
-		common.Logs().Fatal(err.Error())
+		logger.Fatal(err.Error())
+	}
+	// 迁移表结构
+	err = db.AutoMigrate(
+		//&model.UserNoPasswordModel{},
+		&model.ExpenseModel{},
+		&model.UserConfigModel{},
+		&model.DailyProfitLossModel{},
+		&model.WorkOverTimeModel{},
+	)
+	if err != nil {
+		logger.Fatal(err.Error())
 	}
 
 }
